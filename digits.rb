@@ -1,4 +1,16 @@
 class Digits
+  def self.calculate_recursive(digits)
+    digits = digits.to_s
+    return '' if digits.length == 0
+    (0..digits.length).each do |index|
+      unless digits[index] == digits[0]
+        @result = (index.to_s + digits[0] + calculate_recursive(digits[index..digits.length]))
+        break
+      end
+    end
+    @result
+  end
+
   def self.calculate(digits)
     @position = []
     @count    = []
