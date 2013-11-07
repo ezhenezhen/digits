@@ -1,13 +1,32 @@
 class Digits
-  # вообще говоря задача поставлена не точно,
-  # не понятно на сколько долго нужно продолжать последовательность
-  # ну, и самое простое решение из всех вариантов -
-  # puts 13112221 - что является продолжением последовательности и решением задачи.
+  def self.calculate(digits)
+    @position = []
+    @count    = []
+    @array_of_digits = digits.to_s.split('')
 
-  # предположим, что нам все-таки нужно чтобы программа сама вычислила какой следующий элемент
-  DIGITS = [ 1, 11, 21, 1211, 111221, 312211 ]
+    # находим индексы смены цифр
+    @position << 0
+    @array_of_digits.each_with_index do |digit, index|
+      if index >= 1
+        next if @array_of_digits[index-1] == digit
+        @position << index
+      end
+    end
 
-  def count(quantity = 1)
-    DIGITS
+    # записываем количество цифр и саму цифру
+    @position.each_with_index do |value, index|
+      digit = @array_of_digits[value]
+      if index+1 < @position.length
+        sum = @position[index+1] - @position[index]
+        @count << sum
+        @count << digit.to_i
+      end
+    end
+
+    digit = @array_of_digits.last
+    sum   = @array_of_digits.length - @position.last
+    @count << sum
+    @count << digit.to_i
+    @count.join
   end
 end
