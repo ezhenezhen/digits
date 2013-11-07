@@ -30,15 +30,20 @@ class Digits
       digit = @array_of_digits[value]
       if index+1 < @position.length
         sum = @position[index+1] - @position[index]
-        @count << sum
-        @count << digit.to_i
+        add_to_count(digit, sum)
       end
     end
 
     digit = @array_of_digits.last
     sum   = @array_of_digits.length - @position.last
+    add_to_count(digit, sum)
+    @count.join
+  end
+
+  private
+
+  def self.add_to_count(digit, sum)
     @count << sum
     @count << digit.to_i
-    @count.join
   end
 end
